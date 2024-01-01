@@ -15,8 +15,8 @@ def parsUltraPlus(terms):
                 exponent = parts[i][1][2:]
                 if coefficient:
                     sign = '+' if i == 0 or parts[i-1] == '+' else '-'
-                    rslt = -1 * float(sign + coefficient)
-                    if j == 2:
+                    rslt = float(sign + coefficient)
+                    if j == 1:
                         rslt *= -1
                     coefficients.append(rslt)
                 else:
@@ -24,9 +24,8 @@ def parsUltraPlus(terms):
                 exponents.append(exponent)
             elif parts[i].isdigit():
                 sign = '+' if i == 0 or parts[i-1] == '+' else '-'
-                rst = -1 * float(sign + parts[i])
-                if j == 2:
-                    print(term)
+                rst = float(sign + parts[i])
+                if j == 1:
                     rst *= -1
                 constants.append(rst)
             i += 1
