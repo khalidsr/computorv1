@@ -1,57 +1,37 @@
 import re
 
-
 def parsUltraPlus(terms):
     coefficients = []
     exponents = []
     constants = []
-
+    j = 0
     for term in terms:
-        i =0
-        parts = re.split(r'([+-])',term)
+        i = 0
+        parts = re.split(r'([+-])', term)
         while i < len(parts):
-            if 'X' in  parts[i]:
+            if 'X' in parts[i]:
                 parts[i] = parts[i].split("*")
                 coefficient = parts[i][0]
-                exponent = parts[i][1]
-                coefficients.append(coefficient if coefficient else 1.0)
-                exponents.append(exponent)
-            else:
-                if parts[i].isdigit():
-                    constants.append(parts[i])
+                exponent = parts[i][1][2:]
+                if coefficient:
+                    sign = '+' if i == 0 or parts[i-1] == '+' else '-'
+                    rslt = -1 * float(sign + coefficient)
+                    if j == 2:
+                        rslt *= -1
+                    coefficients.append(rslt)
                 else:
-                    # if i < len(parts) - 1:
-                        parts[i] = parts[i+1].join(parts[i])
-                        print(parts[i])
-            i+=1
-
+                    coefficients.append('+' if i == 0 or parts[i-1] == '+' else '-')
+                exponents.append(exponent)
+            elif parts[i].isdigit():
+                sign = '+' if i == 0 or parts[i-1] == '+' else '-'
+                rst = -1 * float(sign + parts[i])
+                if j == 2:
+                    print(term)
+                    rst *= -1
+                constants.append(rst)
+            i += 1
+        j+=1
     return coefficients, exponents, constants
-
-
-# def parsUltraPlus(terms):
-#     coefficients = []
-#     exponents = []
-#     j = 1
-#     for term in terms:
-#         matches = re.findall(r'([-+]?\d*\.*\d*)\s?\*\s?X\^(-?\d+)', term)
-#         for match in matches:
-#             coefficient, exponent = match
-#             if(j == 2):
-#                 coefficients.append(-float(coefficient) if coefficient else 1.0)
-#             else:
-#                 coefficients.append(float(coefficient) if coefficient else 1.0)
-#             exponents.append(int(exponent))
-#         j+=1
-#     return coefficients,exponents;
-
-# def  parsUltraPlus(terms):
-#     coefficients = []
-#     exponents = []
-#     j = 1
-#     for term in terms:
-#         matches = re.split(r'([-+])', term)
-#         print(matches)
-#     return coefficients, exponents
 
 def pars(arg):
 
@@ -66,29 +46,20 @@ def pars(arg):
                  i == "^" or i == "/" or i == "." or i == "="):
             return False     
     return True
-# def ParsUltra(arg):
-#     right = arg.split("=")
-#     return right
+
 arg = input("./computer ")
 arg = arg.replace(" ", "")
 if pars(arg) == False:
         print("Please enter valid syntax for polynomials")
         exit(1)
-# equat = ParsUltra(arg)
 
 word = arg.split("=")
-
-
-# print(word);
-# word = parsUltraPlus(equat[0])
-# print(word)
-# print (w[0])
-# i =0
 
 coefficients, exponents,const = parsUltraPlus(word)
 print("Coefficients:", coefficients)
 print("Exponents:", exponents)
 print("Const:", const)
+
 # for coeff, exp in zip(coefficients, exponents):
 #     print( coeff )
 #     print("----------")
