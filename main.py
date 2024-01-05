@@ -28,9 +28,15 @@ def parsUltraPlus(terms):
                 if j == 1:
                     rst *= -1
                 constants.append(rst)
-            i += 1
+            i +=1
         j+=1
     return coefficients, exponents, constants
+
+def ReduceEquation(coefficients,exponents):
+    maximum = max(exponents)
+    coeff = exponents.index(maximum)
+    print(coeff)
+    # print(maximum)
 
 def pars(arg):
 
@@ -55,27 +61,8 @@ if pars(arg) == False:
 word = arg.split("=")
 
 coefficients, exponents,const = parsUltraPlus(word)
-print("Coefficients:", coefficients)
-print("Exponents:", exponents)
-print("Const:", const)
+ReduceEquation(coefficients,exponents)
+# print("Coefficients:", coefficients)
+# print("Exponents:", exponents)
+# print("Const:", const)
 
-# for coeff, exp in zip(coefficients, exponents):
-#     print( coeff )
-#     print("----------")
-#     print(exp)
-#     print("----------")
-
-
-# while i < len(word):
-#     print (parsUltraPlus(word[i]))
-#     i+=1
-
-    
-    
-    
-    
-# print(pars(arg))
-
-# print("Reduced form: " + name)
-# print("Polynomial degree: 2 " + name)
-# print("Discriminant is strictly positive, the two solutions are: " + name)
