@@ -32,12 +32,52 @@ def parsUltraPlus(terms):
         j+=1
     return coefficients, exponents, constants
 
-def ReduceEquation(coefficients,exponents):
-    maximum = max(exponents)
-    coeff = exponents.index(maximum)
-    print(coeff)
-    # print(maximum)
+def ReduceEquationTwo(res):
+    arr = []
+    for i in res.keys():
+        arr.append(i)
+    print(arr)
+    maximum = max(arr)
+    print(maximum)
+    
+    # index = exponents.index(maximum)
+    # if coefficients[index]:
+    #     if int (maximum) <= 2:
+    #         print('Polynomial degree:', maximum)
+    #     else:
+    #         print("The polynomial degree is strictly greater than 2, I can't solve.")
+def big_c(const):
+    big_c = 0
+    for i in const:
+        big_c += int (i)
+    return big_c
+def  ReduceEquation(coefficients,exponents):
+    hold_coeff = []
+    
+    res = {}
+    for  key in exponents:
+        for value in coefficients:
+            if key in res:
+                res[key] += value
+            else:
+                res[key] = value
+            coefficients.remove(value)
+            break
+    return res
+    # seen_elements = set()
+    # repeated_elements = set()
+    # for element in exponents:
+    #     if element in seen_elements:
+    #         repeated_elements.add(element)
+    #         hold_coeff.append(exponents.index(element))
+    #         print(hold_coeff)
+    #     else:
+    #         seen_elements.add(element)
 
+    # if repeated_elements:
+    #     print("Some elements are repeated in the list:", repeated_elements)
+    # else:
+    #     print("No elements are repeated in the list.")
 def pars(arg):
 
     count = arg.count('=')
@@ -59,9 +99,20 @@ if pars(arg) == False:
         exit(1)
 
 word = arg.split("=")
+if len(word) == 2:
+    if len(word[0]) == 0 or len(word[1]) == 0 :
+        print("Please enter valid syntax for polynomials")
+        exit(1)
 
 coefficients, exponents,const = parsUltraPlus(word)
-ReduceEquation(coefficients,exponents)
+
+res = ReduceEquation(coefficients,exponents)
+ReduceEquationTwo(res)
+# bigC = big_c(const)
+# print(bigC)
+
+
+
 # print("Coefficients:", coefficients)
 # print("Exponents:", exponents)
 # print("Const:", const)
