@@ -1,18 +1,30 @@
 import re
+def printError():
+    print("Please enter valid syntax for polynomials")
+    exit(1)
 
 def parsUltraPlus(terms):
     coefficients = []
     exponents = []
     constants = []
     j = 0
+
     for term in terms:
         i = 0
         parts = re.split(r'([+-])', term)
+        
         while i < len(parts):
             if 'X' in parts[i]:
                 parts[i] = parts[i].split("*")
                 coefficient = parts[i][0]
-                exponent = parts[i][1][2:]
+                if len(parts[i]) != 2:
+                    print(len(parts[i]))
+                    printError()
+                if len(parts[i][1]) > 2 and parts[i][1][2:].isdigit():
+                    exponent = int(parts[i][1][2:])
+                else:
+                    printError()
+
                 if coefficient:
                     sign = '+' if i == 0 or parts[i-1] == '+' else '-'
                     rslt = float(sign + coefficient)
@@ -22,35 +34,39 @@ def parsUltraPlus(terms):
                 else:
                     coefficients.append('+' if i == 0 or parts[i-1] == '+' else '-')
                 exponents.append(exponent)
-            elif parts[i].isdigit():
+            elif parts[i].replace('.', '', 1).isdigit():
                 sign = '+' if i == 0 or parts[i-1] == '+' else '-'
                 rst = float(sign + parts[i])
                 if j == 1:
                     rst *= -1
                 constants.append(rst)
-            i +=1
-        j+=1
+            i += 1
+        j += 1
+
     return coefficients, exponents, constants
 
 def ReduceEquationTwo(res):
     arr = []
     for i in res.keys():
-        arr.append(i)
-    print(arr)
-    maximum = max(arr)
-    print(maximum)
-    
-    # index = exponents.index(maximum)
-    # if coefficients[index]:
-    #     if int (maximum) <= 2:
-    #         print('Polynomial degree:', maximum)
-    #     else:
-    #         print("The polynomial degree is strictly greater than 2, I can't solve.")
+        if res[i] == 0:
+            del res[i] 
+    maximum = max(res.keys())
+    if res[maximum]:
+        if maximum > 2:
+            print('Polynomial degree:', maximum)
+            print("The polynomial degree is strictly greater than 2, I can't solve.")
+        elif maximum <= 2:
+            print('Polynomial degree:', maximum)
+        
+        else:
+            print("The polynomial degree is strictly greater than 2, I can't solve.")
+            
 def big_c(const):
     big_c = 0
     for i in const:
         big_c += int (i)
     return big_c
+
 def  ReduceEquation(coefficients,exponents):
     hold_coeff = []
     
@@ -58,9 +74,9 @@ def  ReduceEquation(coefficients,exponents):
     for  key in exponents:
         for value in coefficients:
             if key in res:
-                res[key] += value
+                res[int (key)] += value
             else:
-                res[key] = value
+                res[int (key)] = value
             coefficients.remove(value)
             break
     return res
@@ -78,6 +94,18 @@ def  ReduceEquation(coefficients,exponents):
     #     print("Some elements are repeated in the list:", repeated_elements)
     # else:
     #     print("No elements are repeated in the list.")
+    
+def checkDelta(res,cst):
+    delta = res
+    for i in res.keys():
+        if i == 0:
+            cst+=res[i]
+            del res[i]
+            #
+    delta = (res[1]*res[1]  - (4 * res[2] * cst))
+    print(delta) 
+    return delta
+    
 def pars(arg):
 
     count = arg.count('=')
@@ -95,20 +123,20 @@ def pars(arg):
 arg = input("./computer ")
 arg = arg.replace(" ", "")
 if pars(arg) == False:
-        print("Please enter valid syntax for polynomials")
-        exit(1)
+    printError()
 
 word = arg.split("=")
 if len(word) == 2:
     if len(word[0]) == 0 or len(word[1]) == 0 :
-        print("Please enter valid syntax for polynomials")
-        exit(1)
+        printError()
 
 coefficients, exponents,const = parsUltraPlus(word)
 
 res = ReduceEquation(coefficients,exponents)
 ReduceEquationTwo(res)
-# bigC = big_c(const)
+bigC = big_c(const)
+delta = checkDelta(res,bigC)
+
 # print(bigC)
 
 
