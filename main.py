@@ -1,4 +1,17 @@
 import re
+
+def msqrt(y):
+    
+    i = 1
+    while 1:
+        i += 1
+        if i * i >= y:
+            break
+
+    x = (i + y / i) / 2
+    return x
+
+
 def printError():
     print("Please enter valid syntax for polynomials")
     exit(1)
@@ -46,29 +59,31 @@ def parsUltraPlus(terms):
     return coefficients, exponents, constants
 
 def ReduceEquationTwo(res):
-    arr = []
-    for i in res.keys():
-        if res[i] == 0:
-            del res[i] 
     maximum = max(res.keys())
     if res[maximum]:
         if maximum > 2:
             print('Polynomial degree:', maximum)
             print("The polynomial degree is strictly greater than 2, I can't solve.")
+            exit(0)
         elif maximum <= 2:
             print('Polynomial degree:', maximum)
-        
-        else:
-            print("The polynomial degree is strictly greater than 2, I can't solve.")
+    # print(res)
+    return maximum
+                    
+        # else:
+        #     print("The polynomial degree is strictly greater than 2, I can't solve.")
             
-def big_c(const):
+def big_c(const, res):
     big_c = 0
     for i in const:
-        big_c += int (i)
+        big_c += float (i)
+    for i in res.keys():
+      if i == 0:
+          big_c+=res[i]
+          del res[i]
     return big_c
 
 def  ReduceEquation(coefficients,exponents):
-    hold_coeff = []
     
     res = {}
     for  key in exponents:
@@ -80,36 +95,70 @@ def  ReduceEquation(coefficients,exponents):
             coefficients.remove(value)
             break
     return res
-    # seen_elements = set()
-    # repeated_elements = set()
-    # for element in exponents:
-    #     if element in seen_elements:
-    #         repeated_elements.add(element)
-    #         hold_coeff.append(exponents.index(element))
-    #         print(hold_coeff)
-    #     else:
-    #         seen_elements.add(element)
-
-    # if repeated_elements:
-    #     print("Some elements are repeated in the list:", repeated_elements)
-    # else:
-    #     print("No elements are repeated in the list.")
     
 def checkDelta(res,cst):
+    
     delta = res
     for i in res.keys():
         if i == 0:
             cst+=res[i]
             del res[i]
-            #
-    delta = (res[1]*res[1]  - (4 * res[2] * cst))
-    print(delta) 
+    if res.get(1):
+        b = res[1]
+    else:
+        b = 0
+    if res.get(2):
+        a = res[2]
+    else:
+        a = 0
+    delta = (b*b  - (4 * a * cst))
     return delta
+
+def twoSolution(res,delta):
+    if res.get(1):
+      b = res[1]
+    else:
+        b = 0
+    if res.get(2):
+        a = res[2]
+    x1 = (-b - msqrt(delta))/(2*a)
+    x2 = (-b + msqrt(delta))/(2*a)
+    return x1,x2
+
+def oneSolution(res):
+    if res.get(1):
+      b = res[1]
+    else:
+        b = 0
+    if res.get(2):
+        a = res[2]
+    x = -b/(2*a)
+    return x,None
+
+def complexSolution(res,delta):
+    if res.get(1):
+     b = res[1]
+    else:
+        b = 0
+    if res.get(2):
+        a = res[2]
+    alpha = str(-b/(2*a))
+    betha = str(- msqrt(abs(delta))/(2*a))
+    gamma = str(msqrt(abs(delta))/(2*a))
+    if betha[0] == '-':
+        x1 = alpha + " " + betha + "i"
+    else:
+        x1 = alpha  + " + " + betha + "i"
+    if gamma[0] == '-':
+        x2 = alpha + " " + gamma + "i"
+    else:
+        x2 = alpha + " + " + gamma + "i"
+
+    return x1,x2
     
 def pars(arg):
-
+    
     count = arg.count('=')
-
     if not  count <= 1:
         return False
     if not arg.find("^-") == -1:
@@ -119,6 +168,24 @@ def pars(arg):
                  i == "^" or i == "/" or i == "." or i == "="):
             return False     
     return True
+
+def firstDegre(res,bigC):
+
+    x = - (bigC/res[1])
+    return x
+
+def secondDegre(res,bigC):
+    
+    delta = checkDelta(res,bigC)
+    if delta > 0:
+        x1,x2 = twoSolution(res,delta)
+    elif delta == 0:
+        x1,x2 = oneSolution(res)
+    else:
+       x1, x2 = complexSolution(res,delta)
+    return x1,x2
+
+
 
 arg = input("./computer ")
 arg = arg.replace(" ", "")
@@ -131,17 +198,26 @@ if len(word) == 2:
         printError()
 
 coefficients, exponents,const = parsUltraPlus(word)
+# print("Coefficients:", coefficients)
+# print("Exponents:", exponents)
+# print("Const:", const)
 
 res = ReduceEquation(coefficients,exponents)
-ReduceEquationTwo(res)
-bigC = big_c(const)
-delta = checkDelta(res,bigC)
+maximum = ReduceEquationTwo(res)
+bigC = big_c(const,res)
+if maximum == 1:
+    x = firstDegre(res,bigC)
+    print("x=",x)
+else:
+    x1,x2= secondDegre(res,bigC)
+    print(x1)
+    # print("x1=",round(x1,6))
+    if x2 != None :
+        print(x2)
+        # print("x2=", round(x2,6))
 
 # print(bigC)
 
 
 
-# print("Coefficients:", coefficients)
-# print("Exponents:", exponents)
-# print("Const:", const)
 
