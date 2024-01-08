@@ -12,6 +12,13 @@ def msqrt(y):
     return x
 
 
+def ReprintPolynome(res, cst):
+    for i in res:
+        print(str(i.values()) + " * X^" + str(i.keys()), end=" ")
+    print(str(cst))
+
+
+
 def printError():
     print("Please enter valid syntax for polynomials")
     exit(1)
@@ -62,16 +69,16 @@ def ReduceEquationTwo(res):
     maximum = max(res.keys())
     if res[maximum]:
         if maximum > 2:
-            print('Polynomial degree:', maximum)
+            print('Polynomial degree: '+ str(maximum))
             print("The polynomial degree is strictly greater than 2, I can't solve.")
             exit(0)
         elif maximum <= 2:
-            print('Polynomial degree:', maximum)
-    # print(res)
+            print('Polynomial degree: ' + str(maximum))
+            if maximum == 1:
+                print("The solution is:")
+                print(firstDegre(res,bigC))
+                
     return maximum
-                    
-        # else:
-        #     print("The polynomial degree is strictly greater than 2, I can't solve.")
             
 def big_c(const, res):
     big_c = 0
@@ -174,18 +181,6 @@ def firstDegre(res,bigC):
     x = - (bigC/res[1])
     return x
 
-def secondDegre(res,bigC):
-    
-    delta = checkDelta(res,bigC)
-    if delta > 0:
-        x1,x2 = twoSolution(res,delta)
-    elif delta == 0:
-        x1,x2 = oneSolution(res)
-    else:
-       x1, x2 = complexSolution(res,delta)
-    return x1,x2
-
-
 
 arg = input("./computer ")
 arg = arg.replace(" ", "")
@@ -198,23 +193,30 @@ if len(word) == 2:
         printError()
 
 coefficients, exponents,const = parsUltraPlus(word)
-# print("Coefficients:", coefficients)
-# print("Exponents:", exponents)
-# print("Const:", const)
+
 
 res = ReduceEquation(coefficients,exponents)
-maximum = ReduceEquationTwo(res)
 bigC = big_c(const,res)
-if maximum == 1:
-    x = firstDegre(res,bigC)
-    print("x=",x)
-else:
-    x1,x2= secondDegre(res,bigC)
-    print(x1)
-    # print("x1=",round(x1,6))
-    if x2 != None :
-        print(x2)
-        # print("x2=", round(x2,6))
+maximum = ReduceEquationTwo(res)
+
+ReprintPolynome(res,bigC)
+
+delta = checkDelta(res,bigC)
+if maximum == 2:
+    if delta > 0:
+        x1,x2 = twoSolution(res,delta)
+        print("Discriminant is strictly positive, the two solutions are:")
+        print(round(x1,6))
+        print(round(x2,6))
+    elif delta == 0:
+        x = oneSolution(res)
+        print("Discriminant is 0 , the solution is :")
+        print(x)
+    else:
+       x1, x2 = complexSolution(res,delta)
+       print("Discriminant is strictly negative, the two imaginary solutions are:")
+       print(x1)
+       print(x2)
 
 # print(bigC)
 
