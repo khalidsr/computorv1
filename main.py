@@ -13,10 +13,13 @@ def msqrt(y):
 
 
 def ReprintPolynome(res, cst):
+    print("Reduced form: " + str(cst) + " * X^0"),
     for i in res:
-        print(str(i.values()) + " * X^" + str(i.keys()), end=" ")
-    print(str(cst))
-
+        if res[i] > 0:
+            print("+ " +str(res[i]) + " * X^" + str(i)),
+        else:
+             print(str(res[i]) + " * X^" + str(i)),
+    print(" = 0")
 
 
 def printError():
@@ -65,19 +68,22 @@ def parsUltraPlus(terms):
 
     return coefficients, exponents, constants
 
-def ReduceEquationTwo(res):
+def ReduceEquationTwo(res,bigC):
+    if len(res) == 0:
+        print("Any real number is a solution")
+        exit(0)
     maximum = max(res.keys())
     if res[maximum]:
         if maximum > 2:
             print('Polynomial degree: '+ str(maximum))
             print("The polynomial degree is strictly greater than 2, I can't solve.")
-            exit(0)
+            exit(1)
         elif maximum <= 2:
+            ReprintPolynome(res,bigC)
             print('Polynomial degree: ' + str(maximum))
             if maximum == 1:
                 print("The solution is:")
-                print(firstDegre(res,bigC))
-                
+                print(firstDegre(res,bigC)) 
     return maximum
             
 def big_c(const, res):
@@ -88,6 +94,9 @@ def big_c(const, res):
       if i == 0:
           big_c+=res[i]
           del res[i]
+    for i in res.keys():
+        if res[i] == 0:
+            del res[i]
     return big_c
 
 def  ReduceEquation(coefficients,exponents):
@@ -140,7 +149,7 @@ def oneSolution(res):
     if res.get(2):
         a = res[2]
     x = -b/(2*a)
-    return x,None
+    return x
 
 def complexSolution(res,delta):
     if res.get(1):
@@ -194,13 +203,9 @@ if len(word) == 2:
 
 coefficients, exponents,const = parsUltraPlus(word)
 
-
 res = ReduceEquation(coefficients,exponents)
 bigC = big_c(const,res)
-maximum = ReduceEquationTwo(res)
-
-ReprintPolynome(res,bigC)
-
+maximum = ReduceEquationTwo(res,bigC)
 delta = checkDelta(res,bigC)
 if maximum == 2:
     if delta > 0:
