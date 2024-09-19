@@ -1,4 +1,5 @@
 import re
+import math
 
 def msqrt(y):
     
@@ -13,12 +14,12 @@ def msqrt(y):
 
 
 def ReprintPolynome(res, cst):
-    print("Reduced form: " + str(cst) + " * X^0"),
+    print("Reduced form: " + str(cst) + " * X^0",end=' '),
     for i in res:
         if res[i] > 0:
-            print("+ " +str(res[i]) + " * X^" + str(i)),
+            print("+ " + str(res[i]) + " * X^" + str(i),end=' '),
         else:
-             print(str(res[i]) + " * X^" + str(i)),
+            print(str(res[i]) + " * X^" + str(i),end=' '),
     print(" = 0")
 
 
@@ -46,6 +47,7 @@ def parsUltraPlus(terms):
                 if len(parts[i][1]) > 2 and parts[i][1][2:].isdigit():
                     exponent = int(parts[i][1][2:])
                 else:
+                    print(parts[i][1][2:])
                     printError()
 
                 if coefficient:
@@ -79,24 +81,25 @@ def ReduceEquationTwo(res,bigC):
             print("The polynomial degree is strictly greater than 2, I can't solve.")
             exit(1)
         elif maximum <= 2:
-            ReprintPolynome(res,bigC)
+            ReprintPolynome(res, bigC)
             print('Polynomial degree: ' + str(maximum))
             if maximum == 1:
                 print("The solution is:")
-                print(firstDegre(res,bigC)) 
+                print(firstDegre(res, bigC)) 
     return maximum
             
 def big_c(const, res):
     big_c = 0
     for i in const:
         big_c += float (i)
-    for i in res.keys():
-      if i == 0:
-          big_c+=res[i]
-          del res[i]
-    for i in res.keys():
-        if res[i] == 0:
+    keys = list(res)
+    for i in keys:
+        if i == 0:
+            big_c+=res[i]
             del res[i]
+    # for i in keys:
+    #     if res[i] == 0:
+    #         del res[i]
     return big_c
 
 def  ReduceEquation(coefficients,exponents):
@@ -137,8 +140,8 @@ def twoSolution(res,delta):
         b = 0
     if res.get(2):
         a = res[2]
-    x1 = (-b - msqrt(delta))/(2*a)
-    x2 = (-b + msqrt(delta))/(2*a)
+    x1 = (-b - math.sqrt(delta))/(2*a)
+    x2 = (-b + math.sqrt(delta))/(2*a)
     return x1,x2
 
 def oneSolution(res):
@@ -173,7 +176,6 @@ def complexSolution(res,delta):
     return x1,x2
     
 def pars(arg):
-    
     count = arg.count('=')
     if not  count <= 1:
         return False
@@ -192,7 +194,9 @@ def firstDegre(res,bigC):
 
 
 arg = input("./computer ")
-arg = arg.replace(" ", "")
+arg= arg.replace(" ","")
+arg = arg.strip('\"')
+
 if pars(arg) == False:
     printError()
 
