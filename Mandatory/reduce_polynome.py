@@ -7,9 +7,9 @@ def big_c(const, res):
         if i == 0:
             big_c+=res[i]
             del res[i]
-    # for i in keys:
-    #     if res[i] == 0:
-    #         del res[i]
+    for i in keys:
+        if res[i] == 0:
+            del res[i]
     return big_c
 
 def  ReduceEquation(coefficients, exponents):

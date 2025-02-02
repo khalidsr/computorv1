@@ -1,4 +1,5 @@
-import re 
+import re
+from print_polynome import printError
 
 def pars(arg):
     count = arg.count('=')
@@ -27,12 +28,10 @@ def parsUltraPlus(terms):
                 parts[i] = parts[i].split("*")
                 coefficient = parts[i][0]
                 if len(parts[i]) != 2:
-                    print(len(parts[i]))
                     printError()
                 if len(parts[i][1]) > 2 and parts[i][1][2:].isdigit():
                     exponent = int(parts[i][1][2:])
                 else:
-                    print(parts[i][1][2:])
                     printError()
 
                 if coefficient:
