@@ -1,14 +1,46 @@
 from solve_equation import firstDegre
 
 
+def format_number(n):
+    """Format a number to remove trailing .0 if it's an integer."""
+    if isinstance(n, float) and n.is_integer():
+        return str(int(n))
+    return str(n)
+
 def ReprintPolynome(res, cst):
-    print("Reduced form: " + str(cst) + " * X^0",end=' '),
-    for i in res:
-        if res[i] > 0:
-            print("+ " + str(res[i]) + " * X^" + str(i),end=' '),
+
+    terms = []
+    
+    if cst != 0:
+        terms.append(f"{format_number(cst)} * X^0")
+    
+    for exp in sorted(res.keys(), reverse=True):
+        coeff = res[exp]
+        if coeff == 0:
+            continue  
+
+        coeff_str = format_number(coeff)
+        
+        if coeff > 0:
+            sign = "+"
         else:
-            print(str(res[i]) + " * X^" + str(i),end=' '),
-    print(" = 0")
+            sign = "-"
+            coeff_str = format_number(abs(coeff))
+        
+        if exp == 0:
+            term = f"{sign} {coeff_str}"
+        elif exp == 1:
+            term = f"{sign} {coeff_str} * X"
+        else:
+            term = f"{sign} {coeff_str} * X^{exp}"
+        
+        terms.append(term)
+
+    if not terms:
+        terms.append("0")
+    polynome = " ".join(terms)
+    
+    print(f"Reduced form: {polynome} = 0")
 
 
 def printError():

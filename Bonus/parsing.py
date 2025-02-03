@@ -25,8 +25,6 @@ def parsUltraPlus(terms):
                 parts[i] = parts[i].split("*")
                 coefficient = parts[i][0]
 
-                # if len(parts[i]) != 2:
-                #     printError()
                 if len(parts[i]) == 1:
                     exponent = int(parts[i][0][2:])
 
@@ -39,7 +37,6 @@ def parsUltraPlus(terms):
                     else:
                         printError()
                 else:
-                    print(parts[i])
                     printError()
 
                 if coefficient:
@@ -59,6 +56,5 @@ def parsUltraPlus(terms):
                 constants.append(rst)
             i += 1
         j += 1
-    print(coefficients, exponents,constants)
 
     return coefficients, exponents, constants

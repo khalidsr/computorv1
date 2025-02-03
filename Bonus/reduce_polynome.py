@@ -1,4 +1,5 @@
 def big_c(const, res):
+
     big_c = 0
     for i in const:
         big_c += float (i)
@@ -8,8 +9,9 @@ def big_c(const, res):
             big_c+=res[i]
             del res[i]
     for i in keys:
-        if res[i] == 0:
-            del res[i]
+        if res:
+            if i in res and res[i] == 0:
+                del res[i]
     return big_c
 
 def  ReduceEquation(coefficients, exponents):

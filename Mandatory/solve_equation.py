@@ -1,3 +1,4 @@
+import math
 
 def msqrt(y):
     
@@ -36,8 +37,8 @@ def twoSolution(res,delta):
         b = 0
     if res.get(2):
         a = res[2]
-    x1 = (-b - msqrt(delta))/(2*a)
-    x2 = (-b + msqrt(delta))/(2*a)
+    x1 = (-b - math.sqrt(delta))/(2*a)
+    x2 = (-b + math.sqrt(delta))/(2*a)
     return x1,x2
 
 def oneSolution(res):
