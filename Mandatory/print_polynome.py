@@ -14,7 +14,7 @@ def ReprintPolynome(res, cst):
     if cst != 0:
         terms.append(f"{format_number(cst)} * X^0")
     
-    for exp in sorted(res.keys(), reverse=True):
+    for exp in sorted(res.keys()):
         coeff = res[exp]
         if coeff == 0:
             continue  
@@ -30,7 +30,7 @@ def ReprintPolynome(res, cst):
         if exp == 0:
             term = f"{sign} {coeff_str}"
         elif exp == 1:
-            term = f"{sign} {coeff_str} * X"
+            term = f"{sign} {coeff_str} * X^1"
         else:
             term = f"{sign} {coeff_str} * X^{exp}"
         
