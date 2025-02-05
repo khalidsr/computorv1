@@ -4,10 +4,11 @@ from parsing import pars, parsUltraPlus
 from print_polynome import printError, ReduceEquationTwo
 from reduce_polynome import  ReduceEquation, big_c
 from solve_equation import checkDelta, twoSolution, oneSolution, complexSolution
-
+import sys 
 
 def main():
-    arg = input("./computer ")
+    # arg = input("./computer ")
+    arg = sys.argv[1]
     arg = arg.replace(" ","")
     arg = arg.strip('\"')
     if pars(arg) == False:
@@ -22,6 +23,7 @@ def main():
 
     res = ReduceEquation(coefficients, exponents)
 
+  
     bigC = big_c(const, res)
     maximum = ReduceEquationTwo(res, bigC)
     delta = checkDelta(res, bigC)

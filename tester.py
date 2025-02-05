@@ -19,7 +19,7 @@ def run_test(executable, test_case):
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: python3 tester.py [mandatory|bonus]")
+        print("Usage: python3 tester.py [Mandatory|Bonus]")
         sys.exit(1)
 
     directory = sys.argv[1]
@@ -119,18 +119,19 @@ def main():
 
     for index, test_case in enumerate(tests):
         result = run_test(executable, test_case)
-        if result is not None:
-            output_str = result.stdout.strip()
-            if output_str.strip() == test_case.expected_output.strip():
-                print(f"{Fore.GREEN}Test {index + 1} passed{Style.RESET_ALL}")
-            else:
-                print(f"{Fore.RED}Test {index + 1} failed{Style.RESET_ALL}")
-                print(f" Expected:\n{test_case.expected_output}")
-                print(f" Got:\n{output_str}\n")
+        print(result)
+        # if result is not None:
+        #     output_str = result.stdout.strip()
+        #     if output_str.strip() == test_case.expected_output.strip():
+        #         print(f"{Fore.GREEN}Test {index + 1} passed{Style.RESET_ALL}")
+        #     else:
+        #         print(f"{Fore.RED}Test {index + 1} failed{Style.RESET_ALL}")
+        #         print(f" Expected:\n{test_case.expected_output}")
+        #         print(f" Got:\n{output_str}\n")
 
-                diff = difflib.ndiff(test_case.expected_output.splitlines(), output_str.splitlines())
-                print("---------------------------")
-                print("\n".join(diff))
+        #         diff = difflib.ndiff(test_case.expected_output.splitlines(), output_str.splitlines())
+        #         print("---------------------------")
+        #         print("\n".join(diff))
 
 
 

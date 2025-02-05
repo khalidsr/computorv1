@@ -51,7 +51,6 @@ def ReduceEquationTwo(res,bigC):
     if len(res) == 0:
         print("Any real number is a solution")
         exit(0)
-
     maximum = max(res.keys())
     if res[maximum]:
         if maximum > 2:

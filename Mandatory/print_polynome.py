@@ -11,17 +11,16 @@ def ReprintPolynome(res, cst):
 
     terms = []
     
-    if cst != 0:
-        terms.append(f"{format_number(cst)} * X^0")
-    
+    # if cst != 0:
+    terms.append(f"{format_number(cst)} * X^0")
     for exp in sorted(res.keys()):
         coeff = res[exp]
-        if coeff == 0:
-            continue  
+        # if coeff == 0:
+        #     continue  
 
         coeff_str = format_number(coeff)
         
-        if coeff > 0:
+        if coeff >= 0:
             sign = "+"
         else:
             sign = "-"
@@ -49,12 +48,16 @@ def printError():
 
 
 def ReduceEquationTwo(res,bigC):
+
     if len(res) == 0:
-        print("Any real number is a solution")
+        ReprintPolynome(res, bigC)
+        print('Polynomial degree: 0')
+        print("Any real number is a solution.")
         exit(0)
     maximum = max(res.keys())
     if res[maximum]:
         if maximum > 2:
+            ReprintPolynome(res, bigC)
             print('Polynomial degree: '+ str(maximum))
             print("The polynomial degree is strictly greater than 2, I can't solve.")
             exit(1)
