@@ -2,6 +2,9 @@ import re
 from print_polynome import printError
 
 def pars(arg):
+    
+    if arg.find('X') == -1:
+        return False
     count = arg.count('=')
     if not  count <= 1:
         return False

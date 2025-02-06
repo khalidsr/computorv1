@@ -34,7 +34,7 @@ def main():
         elif delta == 0:
             x = oneSolution(res)
             print("Discriminant is 0 , the solution is :")
-            print(x)
+            print(round(x,6)
         else:
             x1, x2 = complexSolution(res,delta)
             print("Discriminant is strictly negative, the two imaginary solutions are:")

@@ -47,25 +47,30 @@ def printError():
     exit(1)
 
 
-def ReduceEquationTwo(res,bigC):
+def ReduceEquationTwo(res, bigC):
 
-    if len(res) == 0:
-        ReprintPolynome(res, bigC)
-        print('Polynomial degree: 0')
-        print("Any real number is a solution.")
-        exit(0)
-    maximum = max(res.keys())
-    if res[maximum]:
-        if maximum > 2:
-            ReprintPolynome(res, bigC)
-            print('Polynomial degree: '+ str(maximum))
-            print("The polynomial degree is strictly greater than 2, I can't solve.")
-            exit(1)
-        elif maximum <= 2:
-            ReprintPolynome(res, bigC)
-            print('Polynomial degree: ' + str(maximum))
-            if maximum == 1:
-                print("The solution is:")
-                print(firstDegre(res, bigC)) 
+    nonzero_terms = {k: v for k, v in res.items() if v != 0}
+
+
+    maximum = max(nonzero_terms.keys(), default=0)
+
+    ReprintPolynome(res, bigC)
+    print(f'Polynomial degree: {maximum}')
+
+
+    if maximum == 0:
+        if bigC != 0:
+            print("No solution.")
+        else:
+            print("Any real number is a solution.")
+        exit(1)
+
+    if maximum > 2:
+        print("The polynomial degree is strictly greater than 2, I can't solve.")
+        exit(1)
+
+    if maximum == 1:
+        print("The solution is:")
+        print(round(firstDegre(res, bigC), 6))
+
     return maximum
-            

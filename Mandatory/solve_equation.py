@@ -31,6 +31,7 @@ def checkDelta(res,cst):
 
 
 def twoSolution(res,delta):
+    a=b=0
     if res.get(1):
       b = res[1]
     else:
@@ -39,16 +40,19 @@ def twoSolution(res,delta):
         a = res[2]
     x1 = (-b - math.sqrt(delta))/(2*a)
     x2 = (-b + math.sqrt(delta))/(2*a)
-    return x1,x2
+    return x1, x2
 
-def oneSolution(res):
+def oneSolution(res,bigC):
+    a = b = 0
     if res.get(1):
       b = res[1]
     else:
         b = 0
     if res.get(2):
         a = res[2]
-    x = -b/(2*a)
+        x = -b/(2*a)
+    else:
+        x= bigC/b
     return x
 
 def complexSolution(res,delta):
@@ -58,19 +62,19 @@ def complexSolution(res,delta):
         b = 0
     if res.get(2):
         a = res[2]
-    alpha = str(-b/(2*a))
-    betha = str(- msqrt(abs(delta))/(2*a))
-    gamma = str(msqrt(abs(delta))/(2*a))
+    alpha = str(round(-b/(2*a),6))
+    betha = str(- round(msqrt(abs(delta))/(2*a),6))
+    gamma = str(round(msqrt(abs(delta))/(2*a),6))
     if betha[0] == '-':
-        x1 = alpha + " " + betha + "i"
+        x1 = alpha + " - " + betha[1:] + "i"
     else:
         x1 = alpha  + " + " + betha + "i"
     if gamma[0] == '-':
-        x2 = alpha + " " + gamma + "i"
+        x2 = alpha + " - " + gamma[1:] + "i"
     else:
         x2 = alpha + " + " + gamma + "i"
 
-    return x1,x2
+    return x1, x2
 
 def firstDegre(res, bigC):
 
