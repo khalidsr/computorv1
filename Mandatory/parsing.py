@@ -5,8 +5,10 @@ def pars(arg):
     
     if arg.find('X') == -1:
         return False
+    if re.search(r'[\+\-\*/\^]{2,}', arg):
+        return False
     count = arg.count('=')
-    if not  count <= 1:
+    if count != 1:
         return False
     if not arg.find("^-") == -1:
         return False

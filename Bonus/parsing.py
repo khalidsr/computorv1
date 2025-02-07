@@ -2,8 +2,11 @@ import re
 from print_polynome import printError
 
 def pars(arg):
+ 
     count = arg.count('=')
-    if not  count <= 1:
+    if count != 1:
+        return False
+    if re.search(r'[\+\-\*/\^]{2,}', arg):
         return False
     for i in arg:
         if not  (i.isdigit() or i.isspace() or i == "X" or i == '*' or i == "+" or i == "-" or 

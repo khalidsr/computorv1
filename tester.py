@@ -104,7 +104,7 @@ def main():
         ########################################################################
         TestCase(
             "5* X^0 +1* X^1 + 1 * X^1 = 3 * X^1",
-            "Reduced form: 5 - 1 * X = 0\nPolynomial degree: 1\nThe solution is:\n5.0"
+            "Reduced form: 5 - X = 0\nPolynomial degree: 1\nThe solution is:\n5.0"
         ),
            TestCase(
             "5 + 4 * X + X^2= X^2",
@@ -124,16 +124,15 @@ def main():
         ),
         TestCase(
             "1*X^3 + 1* X^2 +1 * X^1 + 1 * X^0 = 0",
-            "Reduced form: 1 + 1 * X^3 + 1 * X^2 + 1 * X = 0\nPolynomial degree: 3\nThe polynomial degree is strictly greater than 2, I can't solve."
+            "Reduced form: 1 + X^3 + X^2 + X = 0\nPolynomial degree: 3\nThe polynomial degree is strictly greater than 2, I can't solve."
         ),
-        #####################################################################
          TestCase(
             "4 * X + 5 = 0",
             "Reduced form: 5 + 4 * X = 0\nPolynomial degree: 1\nThe solution is:\n-1.25"
         ),
         TestCase(
                 "X^2 - 5*X + 6 = 0",
-                "Reduced form: 6 + 1 * X^2 - 5 * X = 0\nPolynomial degree: 2\nDiscriminant is strictly positive, the two solutions are:\n2.0\n3.0"
+                "Reduced form: 6 + X^2 - 5 * X = 0\nPolynomial degree: 2\nDiscriminant is strictly positive, the two solutions are:\n2.0\n3.0"
         ),
 
 

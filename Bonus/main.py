@@ -24,7 +24,6 @@ def main():
     res = ReduceEquation(coefficients, exponents)
 
     bigC = big_c(const, res)
-
     maximum = ReduceEquationTwo(res, bigC)
     delta = checkDelta(res, bigC)
     if maximum == 2:
