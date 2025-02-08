@@ -78,5 +78,5 @@ def complexSolution(res,delta):
 
 def firstDegre(res, bigC):
 
-    x = - (bigC / res[1])
+    x = ((-1 * bigC) / res[1])
     return x

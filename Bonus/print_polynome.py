@@ -7,45 +7,38 @@ def format_number(n):
         return f"{n}"
     
 def ReprintPolynome(res, cst):
-
     terms = []
+
     if cst != 0:
-        terms.append(format_number(cst))
-    
+        terms.append((cst, f"{format_number(abs(cst))}"))
+
     for exp in sorted(res.keys(), reverse=True):
         coeff = res[exp]
         if coeff == 0:
             continue 
-        
-        coeff_str = format_number(coeff)
-        
-        if coeff > 0:
-            sign = "+"
-        else:
-            sign = "-"
-            coeff_str = format_number(abs(coeff)) 
-        
-        if exp == 0:
-            term = f"{sign} {coeff_str}"
-        elif exp == 1:
-            if coeff_str != '1':
-                term = f"{sign} {coeff_str} * X"
-            else:
-                term = f"{sign} X"
-        else:
-            if coeff_str != '1':
-                term = f"{sign} {coeff_str} * X^{exp}"
-            else:
-                term = f"{sign} X^{exp}"
-        
-        terms.append(term)
-    
-    if not terms:
-        terms.append("0")
 
-    polynome = " ".join(terms)
+        coeff_str = format_number(abs(coeff))
+        sign = "+" if coeff > 0 else "-"
+
+        if exp == 0:
+            term = f"{coeff_str}"
+        elif exp == 1:
+            term = f"{coeff_str} * X" if coeff_str != "1" else "X"
+        else:
+            term = f"{coeff_str} * X^{exp}" if coeff_str != "1" else f"X^{exp}"
+
+        terms.append((sign, term)) 
+
+    if not terms:
+        print("Reduced form: 0 = 0")
+        return  
+
+    polynome = terms[0][1] 
+    for sign, term in terms[1:]:
+        polynome += f" {sign} {term}"
 
     print(f"Reduced form: {polynome} = 0")
+
 
 
 def printError():
