@@ -64,7 +64,7 @@ def main():
             ),
             TestCase(
                 "5 * X^0 + 3 * X^1 + 3 * X^2 = 1 * X^0 + 0 * X^1",
-                "Reduced form: 4 * X^0 + 3 * X^1 + 3 * X^2 = 0\nPolynomial degree: 2\nDiscriminant is strictly negative, the two complex solutions are:\n-0.5 - 1.047619i\n-0.5 + 1.047619i"
+                "Reduced form: 4 * X^0 + 3 * X^1 + 3 * X^2 = 0\nPolynomial degree: 2\nDiscriminant is strictly negative, the two complex solutions are:\n-0.5 - 1.040833i\n-0.5 + 1.040833i"
             ),
             TestCase(
                 "2 * X^2 + 3 * X^1 + 1 = 0",
@@ -76,11 +76,11 @@ def main():
             ),
             TestCase(
                 "-2 * X^2 - 4 * X^1 - 6 * X^0 = 0",
-                "Reduced form: -6 * X^0 - 4 * X^1 - 2 * X^2 = 0\nPolynomial degree: 2\nDiscriminant is strictly negative, the two complex solutions are:\n-1.0 + 1.416667i\n-1.0 - 1.416667i"
+                "Reduced form: -6 * X^0 - 4 * X^1 - 2 * X^2 = 0\nPolynomial degree: 2\nDiscriminant is strictly negative, the two complex solutions are:\n-1.0 + 1.414214i\n-1.0 - 1.414214i"
             ),
             TestCase(
                 "3 * X^2 - 2 * X^1 + 5 * X^0 = 2 * X^2 + 3 * X^1 - 4 * X^0",
-                "Reduced form: 9 * X^0 - 5 * X^1 + 1 * X^2 = 0\nPolynomial degree: 2\nDiscriminant is strictly negative, the two complex solutions are:\n2.5 - 1.6875i\n2.5 + 1.6875i"
+                "Reduced form: 9 * X^0 - 5 * X^1 + 1 * X^2 = 0\nPolynomial degree: 2\nDiscriminant is strictly negative, the two complex solutions are:\n2.5 - 1.658312i\n2.5 + 1.658312i"
             ),
             TestCase(
                 "5 * X^0 = 3 * X^0",
@@ -137,6 +137,10 @@ def main():
                     "X^2 - 5*X + 6 = 0",
                     "Reduced form: 6 + X^2 - 5 * X = 0\nPolynomial degree: 2\nDiscriminant is strictly positive, the two solutions are:\n2.0\n3.0"
             ),
+            TestCase(
+                "5 * X^0 + 3 * X^1 + 3 * X^2 = 1 * X^0 + 0 * X^1",
+                "Reduced form: 4 + 3 * X^2 + 3 * X = 0\nPolynomial degree: 2\nDiscriminant is strictly negative, the two complex solutions are:\n-0.5 - 1.040833i\n-0.5 + 1.040833i"
+            ),
         ]
 
 
@@ -160,4 +164,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

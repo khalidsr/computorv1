@@ -1,15 +1,4 @@
-import math
 
-def msqrt(y):
-    
-    i = 1
-    while 1:
-        i += 1
-        if i * i >= y:
-            break
-
-    x = (i + y / i) / 2
-    return x
 
 def checkDelta(res,cst):
     
@@ -38,8 +27,8 @@ def twoSolution(res,delta):
         b = 0
     if res.get(2):
         a = res[2]
-    x1 = (-b - math.sqrt(delta))/(2*a)
-    x2 = (-b + math.sqrt(delta))/(2*a)
+    x1 = (-b - (delta)**0.5)/(2*a)
+    x2 = (-b + (delta)**0.5)/(2*a)
     return x1, x2
 
 def oneSolution(res,bigC):
@@ -63,8 +52,8 @@ def complexSolution(res,delta):
     if res.get(2):
         a = res[2]
     alpha = str(round(-b/(2*a),6))
-    betha = str(- round(msqrt(abs(delta))/(2*a),6))
-    gamma = str(round(msqrt(abs(delta))/(2*a),6))
+    betha = str(- round((abs(delta))**0.5/(2*a),6))
+    gamma = str(round((abs(delta))**0.5/(2*a),6))
     if betha[0] == '-':
         x1 = alpha + " - " + betha[1:] + "i"
     else:

@@ -1,14 +1,13 @@
 import re
-import math
 from parsing import pars, parsUltraPlus
 from print_polynome import printError, ReduceEquationTwo
 from reduce_polynome import  ReduceEquation, big_c
 from solve_equation import checkDelta, twoSolution, oneSolution, complexSolution
-import sys 
+# import sys 
 
 def main():
-    # arg = input("./computer ")
-    arg = sys.argv[1]
+    arg = input("./computer ")
+    # arg = sys.argv[1]
     arg = arg.replace(" ","")
     arg = arg.strip('\"')
     if pars(arg) == False:
